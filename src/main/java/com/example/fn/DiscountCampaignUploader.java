@@ -26,7 +26,7 @@ public class DiscountCampaignUploader {
                     .append("/o/")
                     .append(data.get("resourceName"));
             
-            System.err.println("JSON FILE:: " + jsonfileUrl.toString());
+            System.out.println("JSON FILE:: " + jsonfileUrl.toString());
             InputStream is    = new URL(jsonfileUrl.toString()).openStream();
             JsonParser parser = Json.createParser(is);
             while (parser.hasNext()) {
@@ -39,15 +39,15 @@ public class DiscountCampaignUploader {
                    case VALUE_FALSE:
                    case VALUE_NULL:
                    case VALUE_TRUE:
-                      System.err.println(event.toString());
+                      System.out.println(event.toString());
                       break;
                    case KEY_NAME:
-                      System.err.print(event.toString() + " " +
+                      System.out.print(event.toString() + " " +
                                        parser.getString() + " - ");
                       break;
                    case VALUE_STRING:
                    case VALUE_NUMBER:
-                      System.err.println(event.toString() + " " +
+                      System.out.println(event.toString() + " " +
                                          parser.getString());
                       break;
                 }
@@ -56,8 +56,6 @@ public class DiscountCampaignUploader {
         catch (Exception ex){
             ex.printStackTrace();
         }
-        finally {
-            return new String("OK");
-        }
+        return new String("OK");
     }
 }
