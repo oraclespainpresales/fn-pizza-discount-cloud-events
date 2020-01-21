@@ -56,6 +56,6 @@ public class DiscountCampaignUploader {
         catch (Exception ex){
             ex.printStackTrace();
         }
-        return new String("OK");
+        return "OK";
     }
 }

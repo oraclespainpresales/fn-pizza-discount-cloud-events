@@ -1,0 +1,33 @@
+{
+    "cloudEventsVersion": "0.1",
+    "eventID": "[UUID]",
+    "eventType": "com.oraclecloud.objectstorage.createobject",
+    "source": "objectstorage",
+    "eventTypeVersion": "2.0",
+    "eventTime": "2020-02-21T15:41:03Z",
+    "schemaURL": null,
+    "contentType": "application/json",
+    "extensions": {
+     "compartmentId": "ocid1.compartment.oc1..aaaaaaaatz2chvjiz4d3xdrtzmtxspkul4augrxbv6lb6br3e2xv7aerh3ia"
+    },
+    "data": {
+     "compartmentId": "ocid1.compartment.oc1..aaaaaaaatz2chvjiz4d3xdrtzmtxspkul4augrxbv6lb6br3e2xv7aerh3ia",
+     "compartmentName": "WEDO:DevOps",
+     "resourceName": "campaign.txt",
+     "resourceId": "",
+     "availabilityDomain": "all",
+     "freeFormTags": {
+     
+     },
+     "definedTags": {
+     
+     },
+     "additionalDetails": {
+      "eTag": "d47d36a4-b619-40cb-9cfd-a8bf9029a017",
+      "namespace": "ocid1.tenancy.oc1..aaaaaaaaccrdrt4k37tjev6fhheoqvezozo6unvffeykgkkby3nqzkjzf2yq",
+      "archivalState": "Available",
+      "bucketName": "bucket-gigis-pizza-discounts",
+      "bucketId": "ocid1.bucket.oc1.eu-frankfurt-1.aaaaaaaasndscagkbrqhfcrezkla6cqa2sippfqggyqxbd4ewbloqthjsfka"
+     }
+    }
+   }
