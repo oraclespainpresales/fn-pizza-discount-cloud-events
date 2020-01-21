@@ -1,37 +1,63 @@
 package com.example.fn;
 
-import com.drew.imaging.ImageMetadataReader;
-import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.Metadata;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cloudevents.CloudEvent;
 
-import java.io.IOException;
+import javax.json.Json;
+import javax.json.stream.JsonParser;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
 public class DiscountCampaignUploader {
 
-    public Metadata handleRequest(CloudEvent event) throws IOException, ImageProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map data = objectMapper.convertValue(event.getData().get(), Map.class);
-        Map additionalDetails = objectMapper.convertValue(data.get("additionalDetails"), Map.class);
+    public String handleRequest(CloudEvent event) {
+        try {
+            //get upload file properties like namespace or buckername.
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map data                  = objectMapper.convertValue(event.getData().get(), Map.class);
+            Map additionalDetails     = objectMapper.convertValue(data.get("additionalDetails"), Map.class);
 
-        String imageUrl = "https://objectstorage.us-phoenix-1.oraclecloud.com/n/" +
-                additionalDetails.get("namespace") +
-                "/b/" +
-                additionalDetails.get("bucketName") +
-                "/o/" +
-                data.get("resourceName");
-
-        InputStream imageStream = new URL(imageUrl).openStream();
-        Metadata metadata = ImageMetadataReader.readMetadata(imageStream);
-        System.out.println(objectMapper.writeValueAsString(metadata));
-
-        //todo: do something with the metadata
-
-        return metadata;
+            StringBuilder jsonfileUrl = new StringBuilder("https://objectstorage.us-frankfurt-1.oraclecloud.com/n/")
+                    .append(additionalDetails.get("namespace"))
+                    .append("/b/")
+                    .append(additionalDetails.get("bucketName"))
+                    .append("/o/")
+                    .append(data.get("resourceName"));
+            
+            System.err.println("JSON FILE:: " + jsonfileUrl.toString());
+            InputStream is    = new URL(jsonfileUrl.toString()).openStream();
+            JsonParser parser = Json.createParser(is);
+            while (parser.hasNext()) {
+                JsonParser.Event jsonEvent = parser.next();
+                switch(jsonEvent) {
+                   case START_ARRAY:
+                   case END_ARRAY:
+                   case START_OBJECT:
+                   case END_OBJECT:
+                   case VALUE_FALSE:
+                   case VALUE_NULL:
+                   case VALUE_TRUE:
+                      System.err.println(event.toString());
+                      break;
+                   case KEY_NAME:
+                      System.err.print(event.toString() + " " +
+                                       parser.getString() + " - ");
+                      break;
+                   case VALUE_STRING:
+                   case VALUE_NUMBER:
+                      System.err.println(event.toString() + " " +
+                                         parser.getString());
+                      break;
+                }
+             }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        finally {
+            return new String("OK");
+        }
     }
-
 }
