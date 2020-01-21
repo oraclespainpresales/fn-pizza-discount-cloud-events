@@ -1,7 +1,3 @@
 schema_version: 20180708
 name: fnpizzadiscountcloudevents
-version: 0.0.3
-runtime: java
-build_image: fnproject/fn-java-fdk-build:jdk11-1.0.105
-run_image: fnproject/fn-java-fdk:jre11-1.0.105
-cmd: com.example.fn.DiscountCampaignUploader::handleRequest
+version: 0.0.27

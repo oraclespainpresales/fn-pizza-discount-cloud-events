@@ -8,7 +8,7 @@
         <fdk.version>1.0.105</fdk.version>
     </properties>
     <groupId>com.example.fn</groupId>
-    <artifactId>hello</artifactId>
+    <artifactId>discountcampaignuploader</artifactId>
     <version>1.0.0</version>
 
     <repositories>
@@ -33,7 +33,7 @@
         <dependency>
             <groupId>io.cloudevents</groupId>
             <artifactId>cloudevents-api</artifactId>
-            <version>1.2.0</version>
+            <version>0.2.1</version>
         </dependency>
         <dependency>
             <groupId>com.drewnoakes</groupId>
@@ -41,9 +41,25 @@
             <version>2.12.0</version>
         </dependency>
         <dependency>
-            <groupId>javax.json</groupId>
-            <artifactId>javax.json-api</artifactId>
-            <version>1.1.4</version>
+            <groupId>com.oracle.oci.sdk</groupId>
+            <artifactId>oci-java-sdk-full</artifactId>
+            <version>1.12.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20190722</version>
         </dependency>
     </dependencies>
 
