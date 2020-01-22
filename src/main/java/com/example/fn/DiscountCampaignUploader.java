@@ -43,7 +43,7 @@ public class DiscountCampaignUploader {
                             .objectName(data.get("resourceName").toString())
                             .build();
 
-            AuthenticationDetailsProvider authProvider = new ConfigFileAuthenticationDetailsProvider("/home/builder/.oci/config","DEFAULT");
+            AuthenticationDetailsProvider authProvider = new ConfigFileAuthenticationDetailsProvider("/.oci/config","DEFAULT");
             ObjectStorageClient objStoreClient         = ObjectStorageClient.builder().build(authProvider);
             GetObjectResponse jsonFile                 = objStoreClient.getObject(jsonFileRequest);
 
