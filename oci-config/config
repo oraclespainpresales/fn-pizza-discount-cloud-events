@@ -1,7 +1,0 @@
-[DEFAULT]
-region=eu-frankfurt-1
-tenancy=ocid1.tenancy.oc1..aaaaaaaaccrdrt4k37tjev6fhheoqvezozo6unvffeykgkkby3nqzkjzf2yq
-user=ocid1.user.oc1..aaaaaaaadn622kpdwingnbjlg4wrfyzvioxr7eey3l5uq73xz6om5hwo4jaa
-fingerprint=f0:db:79:53:8b:1f:f7:62:40:37:b5:a7:45:5c:03:ff 
-key_file=/.oci/oci_api_key.pem
-pass_phrase=

@@ -7,3 +7,5 @@
 .vscode/settings.json
 target/classes/com/example/fn/DiscountCampaignUploader.class
 togithub*
+config
+oci_api_key.pem
