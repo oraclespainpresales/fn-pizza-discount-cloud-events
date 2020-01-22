@@ -10,7 +10,7 @@ RUN ["mvn", "package", "-DskipTests=true"]
 
 FROM fnproject/fn-java-fdk:jre11-1.0.105
 RUN mkdir .oci
-RUN chmod +r /.oci/*
+RUN chmod +r config oci_api_key.pem
 COPY config /.oci/config
 COPY oci_api_key.pem /.oci/oci_api_key.pem
 RUN ls -la /.oci/
