@@ -13,8 +13,10 @@ RUN mkdir .oci
 COPY config /.oci/config
 COPY oci_api_key.pem /.oci/oci_api_key.pem
 RUN ls -la /.oci/
-#COPY /oci-config/config /.oci/config
-#COPY /oci-config/oci_api_key.pem /.oci/oci_api_key.pem
+RUN mkdir /.oci/pp
+COPY /oci-config/config /.oci/pp/config
+COPY /oci-config/oci_api_key.pem /.oci/pp/oci_api_key.pem
+RUN ls -la /.oci/pp
 
 WORKDIR /function
 COPY --from=build-stage /function/target/*.jar /function/app/
