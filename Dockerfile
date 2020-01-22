@@ -9,6 +9,7 @@ ADD src /function/src
 RUN ["mvn", "package", "-DskipTests=true"]
 
 FROM fnproject/fn-java-fdk:jre11-1.0.105
+RUN ls -la $HOME/.oci
 RUN mkdir .oci
 COPY $HOME/.oci/config /.oci/config
 COPY $HOME/.oci/oci_api_key.pem /.oci/oci_api_key.pem
