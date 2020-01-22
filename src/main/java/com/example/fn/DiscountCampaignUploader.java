@@ -6,6 +6,9 @@ import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.functions.FunctionsInvokeClient;
 import com.oracle.bmc.functions.requests.InvokeFunctionRequest;
 import com.oracle.bmc.functions.responses.InvokeFunctionResponse;
+import com.oracle.bmc.objectstorage.ObjectStorageClient;
+import com.oracle.bmc.objectstorage.requests.GetObjectRequest;
+import com.oracle.bmc.objectstorage.responses.GetObjectResponse;
 import com.oracle.bmc.util.StreamUtils;
 
 import io.cloudevents.CloudEvent;
@@ -17,7 +20,7 @@ import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+//import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -34,15 +37,26 @@ public class DiscountCampaignUploader {
             Map data                  = objectMapper.convertValue(event.getData().get(), Map.class);
             Map additionalDetails     = objectMapper.convertValue(data.get("additionalDetails"), Map.class);
 
+            GetObjectRequest jsonFileRequest = GetObjectRequest.builder()
+                            .namespaceName(additionalDetails.get("namespace").toString())
+                            .bucketName(additionalDetails.get("bucketName").toString())
+                            .objectName(data.get("resourceName").toString())
+                            .build();
+
+            AuthenticationDetailsProvider authProvider = new ConfigFileAuthenticationDetailsProvider("/.oci/config","DEFAULT");
+            ObjectStorageClient objStoreClient         = ObjectStorageClient.builder().build(authProvider);
+            GetObjectResponse jsonFile                 = objStoreClient.getObject(jsonFileRequest);
+
             StringBuilder jsonfileUrl = new StringBuilder("https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/")
                     .append(additionalDetails.get("namespace"))
                     .append("/b/")
                     .append(additionalDetails.get("bucketName"))
                     .append("/o/")
                     .append(data.get("resourceName"));
-            
+
             System.out.println("JSON FILE:: " + jsonfileUrl.toString());
-            InputStream isJson = new URL(jsonfileUrl.toString()).openStream();
+            //InputStream isJson = new URL(jsonfileUrl.toString()).openStream();
+            InputStream isJson = jsonFile.getInputStream();
 
             JSONTokener tokener = new JSONTokener(isJson);
 			JSONObject joResult = new JSONObject(tokener);
