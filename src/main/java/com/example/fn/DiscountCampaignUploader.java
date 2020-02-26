@@ -27,9 +27,10 @@ import java.util.Map;
 public class DiscountCampaignUploader {
 
     public String handleRequest(CloudEvent event) {
-        String responseMess      = "";
-        String invokeEndpointURL = "https://gw7unyffbla.eu-frankfurt-1.functions.oci.oraclecloud.com";
-        String functionId        = "ocid1.fnfunc.oc1.eu-frankfurt-1.aaaaaaaaack6vdtmj7n2wy3caoljvjvbcuexmvvhm3tp2k7673cg4jj3ir4a";
+        String responseMess         = "";
+        String objectStorageURLBase = System.getenv().get("OBJECT_STORAGE_URL_BASE");
+        String invokeEndpointURL    = System.getenv().get("INVOKE_ENDPOINT_URL");
+        String functionId           = System.getenv().get("UPLOAD_FUNCTION_ID");
 
         try {
             //get upload file properties like namespace or buckername.
@@ -47,7 +48,8 @@ public class DiscountCampaignUploader {
             ObjectStorageClient objStoreClient         = ObjectStorageClient.builder().build(authProvider);
             GetObjectResponse jsonFile                 = objStoreClient.getObject(jsonFileRequest);
 
-            StringBuilder jsonfileUrl = new StringBuilder("https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/")
+            StringBuilder jsonfileUrl = new StringBuilder(objectStorageURLBase)
+                    .append("/n/")
                     .append(additionalDetails.get("namespace"))
                     .append("/b/")
                     .append(additionalDetails.get("bucketName"))
