@@ -1,4 +1,4 @@
-FROM fnproject/fn-java-fdk-build:jdk11-1.0.105 as build-stage
+FROM fnproject/fn-java-fdk-build:jdk11-1.0.109 as build-stage
 WORKDIR /function
 ENV MAVEN_OPTS -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort= -Dhttp.nonProxyHosts= -Dmaven.repo.local=/usr/share/maven/ref/repository -Dhttps.protocols=TLSv1.2
 
@@ -8,7 +8,7 @@ RUN ["mvn", "package", "dependency:copy-dependencies", "-DincludeScope=runtime",
 ADD src /function/src
 RUN ["mvn", "package", "-DskipTests=true"]
 
-FROM fnproject/fn-java-fdk:jre11-1.0.105
+FROM fnproject/fn-java-fdk:jre11-1.0.109
 RUN mkdir -p /home/builder/.oci
 RUN mkdir -p /.oci
 
