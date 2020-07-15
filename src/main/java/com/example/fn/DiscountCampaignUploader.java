@@ -71,6 +71,7 @@ public class DiscountCampaignUploader {
             }
         }
         catch (Exception ex){
+            System.err.println("ERROR in - DiscountCampaignUploader of fndiscountUpload");
             ex.printStackTrace();
         }
         return responseMess;
